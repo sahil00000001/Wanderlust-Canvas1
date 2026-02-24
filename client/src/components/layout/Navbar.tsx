@@ -7,13 +7,29 @@ import { motion, AnimatePresence } from "framer-motion";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAlwaysSticky, setIsAlwaysSticky] = useState(false);
 
   useEffect(() => {
+    // Check if we are on a page that should always have a sticky, opaque navbar
+    const checkPath = () => {
+      const opaquePaths = ["/destinations", "/tours", "/deals", "/blog"];
+      setIsAlwaysSticky(opaquePaths.includes(window.location.pathname));
+    };
+
+    checkPath();
+    
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Listen for location changes
+    window.addEventListener("popstate", checkPath);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("popstate", checkPath);
+    };
   }, []);
 
   const navLinks = [
@@ -26,7 +42,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || isAlwaysSticky
           ? "bg-white/80 backdrop-blur-md border-b border-border/50 shadow-sm py-3"
           : "bg-transparent py-5"
       }`}
@@ -35,11 +51,11 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className={`p-2 rounded-xl transition-colors ${isScrolled ? 'bg-primary/10 text-primary' : 'bg-white/20 text-white backdrop-blur-sm'}`}>
+            <div className={`p-2 rounded-xl transition-colors ${isScrolled || isAlwaysSticky ? 'bg-primary/10 text-primary' : 'bg-white/20 text-white backdrop-blur-sm'}`}>
               <Plane className="w-6 h-6 transform group-hover:rotate-12 transition-transform" />
             </div>
-            <span className={`text-2xl font-bold font-display tracking-tight ${isScrolled ? 'text-foreground' : 'text-white'}`}>
-              Lumiere<span className={isScrolled ? 'text-primary' : 'text-white/80'}>Travel</span>
+            <span className={`text-2xl font-bold font-display tracking-tight ${isScrolled || isAlwaysSticky ? 'text-foreground' : 'text-white'}`}>
+              Lumiere<span className={isScrolled || isAlwaysSticky ? 'text-primary' : 'text-white/80'}>Travel</span>
             </span>
           </Link>
 
@@ -50,22 +66,22 @@ export function Navbar() {
                 key={link.label} 
                 href={link.href}
                 className={`text-sm font-semibold tracking-wide hover:-translate-y-0.5 transition-all duration-300 relative group/link ${
-                  isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-white/90 hover:text-white'
+                  isScrolled || isAlwaysSticky ? 'text-foreground/80 hover:text-primary' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {link.label}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover/link:w-full ${isScrolled ? 'bg-primary' : 'bg-white'}`} />
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover/link:w-full ${isScrolled || isAlwaysSticky ? 'bg-primary' : 'bg-white'}`} />
               </Link>
             ))}
           </nav>
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <button className={`text-sm font-medium transition-colors ${isScrolled ? 'text-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}>
+            <button className={`text-sm font-medium transition-colors ${isScrolled || isAlwaysSticky ? 'text-foreground hover:text-primary' : 'text-white hover:text-white/80'}`}>
               Log In
             </button>
             <Button 
-              className={isScrolled ? "bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20" : "bg-white text-primary hover:bg-white/90"}
+              className={isScrolled || isAlwaysSticky ? "bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20" : "bg-white text-primary hover:bg-white/90"}
               onClick={() => {}}
             >
               Sign Up
@@ -74,7 +90,7 @@ export function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className={`md:hidden p-2 rounded-lg ${isScrolled ? 'text-foreground' : 'text-white'}`}
+            className={`md:hidden p-2 rounded-lg ${isScrolled || isAlwaysSticky ? 'text-foreground' : 'text-white'}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X /> : <Menu />}
