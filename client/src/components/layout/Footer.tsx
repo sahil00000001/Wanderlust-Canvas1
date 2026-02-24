@@ -81,7 +81,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Lumiere Travel. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-white/50">
-            <span>Designed for Luxury</span>
+            <span>Designed by Sahil Vashisht</span>
           </div>
         </div>
       </div>
