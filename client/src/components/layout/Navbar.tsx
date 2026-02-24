@@ -49,11 +49,12 @@ export function Navbar() {
               <Link 
                 key={link.label} 
                 href={link.href}
-                className={`text-sm font-medium hover:-translate-y-0.5 transition-all duration-200 ${
-                  isScrolled ? 'text-muted-foreground hover:text-primary' : 'text-white/90 hover:text-white'
+                className={`text-sm font-semibold tracking-wide hover:-translate-y-0.5 transition-all duration-300 relative group/link ${
+                  isScrolled ? 'text-foreground/80 hover:text-primary' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {link.label}
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover/link:w-full ${isScrolled ? 'bg-primary' : 'bg-white'}`} />
               </Link>
             ))}
           </nav>

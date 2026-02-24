@@ -50,60 +50,62 @@ export default function SpecialDeals() {
             <Badge className="mb-4 px-4 py-1 bg-accent/10 text-accent border-accent/20 hover:bg-accent/20">
               Limited Time Offers
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
+            <h1 className="text-4xl md:text-7xl font-extrabold font-display mb-6 tracking-tight">
               Special <span className="text-gradient-accent">Deals</span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">
               Grab these incredible offers before they're gone. Unbeatable prices for premium experiences.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-12">
+          <div className="grid grid-cols-1 gap-16">
             {DEALS.map((deal, index) => (
               <motion.div
                 key={deal.id}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
                 viewport={{ once: true }}
               >
-                <Card className="overflow-hidden border-none shadow-xl rounded-[2rem] bg-card/50 backdrop-blur-sm group">
-                  <div className="flex flex-col lg:flex-row">
-                    <div className="lg:w-1/2 h-[300px] lg:h-auto relative overflow-hidden">
+                <Card className="overflow-hidden border-none shadow-2xl rounded-[3rem] bg-card/40 backdrop-blur-xl group hover:shadow-primary/5 transition-all duration-500">
+                  <div className="flex flex-col lg:flex-row min-h-[450px]">
+                    <div className="lg:w-3/5 h-[350px] lg:h-auto relative overflow-hidden">
                       <img 
                         src={deal.image} 
                         alt={deal.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                       />
-                      <div className="absolute top-6 left-6">
-                        <Badge className="bg-accent text-white px-4 py-2 text-lg font-bold shadow-lg shadow-accent/30 animate-pulse">
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+                      <div className="absolute top-8 left-8">
+                        <div className="bg-accent text-white px-6 py-3 text-xl font-black rounded-2xl shadow-2xl shadow-accent/40 animate-bounce">
                           {deal.discount}
-                        </Badge>
+                        </div>
                       </div>
                     </div>
-                    <CardContent className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                      <div className="flex items-center gap-2 text-accent mb-4 font-medium">
-                        <Zap className="w-4 h-4" />
-                        <span>Flash Deal</span>
+                    <CardContent className="lg:w-2/5 p-10 lg:p-14 flex flex-col justify-center bg-gradient-to-br from-card/80 to-background/50">
+                      <div className="flex items-center gap-3 text-accent mb-6 font-bold tracking-widest uppercase text-sm">
+                        <Zap className="w-5 h-5 fill-accent" />
+                        <span>Flash Deal of the Day</span>
                       </div>
-                      <h2 className="text-3xl font-bold font-display mb-4 group-hover:text-primary transition-colors">
+                      <h2 className="text-4xl font-extrabold font-display mb-6 group-hover:text-primary transition-colors leading-tight">
                         {deal.title}
                       </h2>
-                      <div className="flex items-center gap-6 mb-8">
+                      <div className="flex items-center gap-10 mb-10">
                         <div>
-                          <p className="text-sm text-muted-foreground line-through">${deal.originalPrice}</p>
-                          <p className="text-4xl font-bold text-foreground">${deal.price}</p>
+                          <p className="text-sm text-muted-foreground line-through mb-1 font-medium">${deal.originalPrice}</p>
+                          <p className="text-5xl font-black text-foreground tracking-tighter">${deal.price}</p>
                         </div>
-                        <div className="h-12 w-px bg-border" />
+                        <div className="h-16 w-px bg-border/50" />
                         <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Ends In</p>
-                          <div className="flex items-center gap-2 text-foreground font-mono font-bold text-xl">
-                            <Clock className="w-5 h-5 text-primary" />
+                          <p className="text-xs text-muted-foreground uppercase tracking-[0.2em] mb-3 font-bold">Offer Expires In</p>
+                          <div className="flex items-center gap-3 text-primary font-mono font-black text-2xl bg-primary/5 px-4 py-2 rounded-xl border border-primary/10">
+                            <Clock className="w-6 h-6" />
                             <span>{deal.expiresIn}</span>
                           </div>
                         </div>
                       </div>
-                      <Button className="w-full lg:w-max px-12 py-6 text-lg rounded-2xl bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
-                        Claim This Deal
+                      <Button className="w-full py-8 text-xl font-bold rounded-2xl bg-primary hover:bg-primary/90 text-white shadow-2xl shadow-primary/30 group-hover:scale-[1.02] transition-transform">
+                        Secure This Experience
                       </Button>
                     </CardContent>
                   </div>

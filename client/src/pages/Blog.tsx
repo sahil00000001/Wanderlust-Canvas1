@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const POSTS = [
   {
@@ -53,63 +54,64 @@ export default function Blog() {
             <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/20 text-primary">
               Travel Stories
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
+            <h1 className="text-4xl md:text-7xl font-extrabold font-display mb-6 tracking-tight">
               Lumiere <span className="text-gradient">Blog</span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">
               Tips, guides, and inspiration for your next world-class journey.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {POSTS.map((post, index) => (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <Card className="group overflow-hidden border-none shadow-soft hover-elevate transition-all duration-300 rounded-3xl bg-card h-full flex flex-col">
-                  <div className="h-64 relative overflow-hidden">
+                <Card className="group overflow-hidden border-none shadow-2xl hover-elevate transition-all duration-500 rounded-[2.5rem] bg-card h-full flex flex-col">
+                  <div className="h-72 relative overflow-hidden">
                     <img 
                       src={post.image} 
                       alt={post.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-white/90 backdrop-blur-sm text-primary border-none shadow-sm">
+                    <div className="absolute top-6 left-6">
+                      <Badge className="bg-white/95 backdrop-blur-md text-primary border-none shadow-xl px-4 py-1.5 font-bold">
                         {post.category}
                       </Badge>
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   </div>
-                  <CardContent className="p-8 flex-1 flex flex-col">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
+                  <CardContent className="p-10 flex-1 flex flex-col">
+                    <div className="flex items-center gap-6 text-xs text-muted-foreground mb-6 font-semibold uppercase tracking-widest">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-primary" />
                         <span>{post.date}</span>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-primary" />
                         <span>{post.readTime}</span>
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold font-display mb-4 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="text-2xl font-bold font-display mb-6 group-hover:text-primary transition-colors line-clamp-2 leading-tight">
                       {post.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm mb-6 line-clamp-3 flex-1">
+                    <p className="text-muted-foreground text-base mb-8 line-clamp-3 flex-1 leading-relaxed">
                       {post.excerpt}
                     </p>
-                    <div className="flex items-center justify-between mt-auto">
-                      <div className="flex items-center gap-2">
-                        <Avatar className="w-8 h-8 border border-border">
-                          <AvatarFallback>{post.author[0]}</AvatarFallback>
+                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-border/50">
+                      <div className="flex items-center gap-3">
+                        <Avatar className="w-10 h-10 border-2 border-primary/10">
+                          <AvatarFallback className="bg-primary/5 text-primary font-bold">{post.author[0]}</AvatarFallback>
                         </Avatar>
-                        <span className="text-sm font-medium">{post.author}</span>
+                        <span className="text-sm font-bold tracking-tight">{post.author}</span>
                       </div>
-                      <button className="text-primary group-hover:translate-x-1 transition-transform">
-                        <ArrowRight className="w-5 h-5" />
-                      </button>
+                      <Button variant="ghost" className="text-primary hover:text-primary hover:bg-primary/5 group/btn rounded-xl">
+                        Read More <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

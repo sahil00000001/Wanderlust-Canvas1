@@ -19,24 +19,24 @@ export default function Tours() {
             <Badge variant="outline" className="mb-4 px-4 py-1 border-primary/20 text-primary">
               Curated Experiences
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold font-display mb-6">
+            <h1 className="text-4xl md:text-7xl font-extrabold font-display mb-6 tracking-tight">
               Adventure <span className="text-gradient">Tours</span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">
               Expertly crafted itineraries designed to show you the heart of every destination.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {[...FEATURED_PACKAGES, ...FEATURED_PACKAGES].map((pkg, index) => (
               <motion.div
                 key={`${pkg.id}-${index}`}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <PackageCard {...pkg} />
+                <PackageCard data={pkg} />
               </motion.div>
             ))}
           </div>
